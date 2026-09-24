@@ -85,3 +85,4 @@ tarefas de forma autonôma).
 | Claude | Claude Code | Opus, Sonnet, Haiku | Anthropic |
 | GPT | Codex | GPT-5, GPT-4o-mini | OpenIA |
 | Gemini | Jules | Gemini 3 PRO, Gemini 3 Fash | Google |
+
