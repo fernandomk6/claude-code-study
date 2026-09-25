@@ -1,17 +1,45 @@
-# CLAUDE.md
+# Project: Estudando Claude Code
 
-Este arquivo fornece orientações ao Claude Code (claude.ai/code) ao trabalhar com código neste repositório.
+## Tech Stack
+- Next.js 16 (App Router), React 19, TypeScript
+- TailwindCSS 4, shadcn/ui
+- React Hook Form + Zod (validação)
+- Server Component First
 
-## O que é este projeto
+## Commands
+- `npm run dev` — servidor local (porta 3000)
+- `npm run build` — build de produção
 
-`projeto-1` é um projeto de prática independente do curso "Claude Code do Zero ao avançado, MCP, Skills, hooks, Rules". Ele contém um único arquivo estático `index.html` — sem framework, sem gerenciador de pacotes, sem etapa de build.
+## Architecture
+- App Router: rotas em `app/`, agrupadas por `(grupo)/`
+- Server Components por padrão — só adicionar `'use client'` quando usar hooks/eventos/browser APIs
+- Mutações via Server Actions em `actions/` — NUNCA chamar DB direto em Client Components
+- `components/ui/` — primitivos reutilizáveis (shadcn)
+- `components/` — componentes de feature
+- `lib/` — helpers, clients (supabase, stripe), configurações
+- `types/` — tipos globais e schemas Zod compartilhados
 
-## Comandos
+## Code Style
+- NEVER use `any` explícito — usar `unknown` + type guard
+- Imports: ES modules (import/export), sem require()
+- Tailwind only — sem CSS inline, sem styled-components
+- Novos design tokens vão em `tailwind.config.ts` antes de usar
+- Nomes de arquivo: kebab-case. Componentes: PascalCase
 
-Não há ferramentas de build, lint ou testes. Para visualizar alterações, abra o `index.html` diretamente no navegador (ex.: `start index.html` no Windows).
+## Environment Variables
+- `NEXT_PUBLIC_*` apenas para valores seguros no client
+- Segredos (DB, API keys) apenas em Server Actions ou Route Handlers
+- Copiar `.env.example` para `.env.local` ao clonar
 
-## Arquitetura
+## Workflow
+- ALWAYS run `npm run type-check && npm run lint` após uma série de mudanças
+- Rodar um teste por vez, não o suite completo: `npm run test -- NomeDoArquivo`
+- Branch naming: `feat/`, `fix/`, `chore/` + descrição em kebab-case
+- Commits em inglês, imperativo: "add OAuth callback handler"
 
-- Arquivo único e autocontido: `index.html` embute todo o CSS e JS (sem folhas de estilo/scripts externos além do link do Google Fonts para o IBM Plex Mono).
-- Estilizado com uma estética de terminal/CLI: tema escuro por padrão com uma variante `[data-theme="light"]`, alternada por um script que lê o `localStorage` e recorre à media query `prefers-color-scheme` como fallback.
-- Todas as cores do tema são definidas como custom properties CSS em `:root`/`[data-theme="dark"]` e sobrescritas em `[data-theme="light"]` — adicione novas cores lá em vez de fixar valores diretamente nas regras dos componentes.
+## Common Gotchas
+- `revalidatePath()` e `revalidateTag()` só funcionam em Server Actions/Route Handlers
+- Middleware em `middleware.ts` na raiz — não dentro de `app/`
+- Supabase client no server: usar `createServerClient` (cookies). No client: `createBrowserClient`
+- Imagens externas precisam de domínio autorizado em `next.config.ts` (remotePatterns)
+
