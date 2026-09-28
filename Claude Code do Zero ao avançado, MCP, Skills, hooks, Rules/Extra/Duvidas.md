@@ -8,5 +8,12 @@
     - Como criar
 - Como usar marketplaces
 - Diferenças entre plugins, skills, rules e mcps (conectores)
-
-
+- .claude/agents, como criar e usar e por que usar?
+- Entender as pastas ./claude/
+    - agents
+    - hooks
+    - skills
+    - rules 
+    - commands
+    - settings.json
+    

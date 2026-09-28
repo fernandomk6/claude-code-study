@@ -1,3 +1,5 @@
+import { ContactForm } from "@/components/contact-form";
+
 const contactInfo = [
   {
     label: "Endereço",
@@ -46,21 +48,25 @@ export function Contact() {
           </dl>
         </div>
 
-        <div className="rounded-2xl bg-accent-soft p-7">
-          <h3 className="font-display text-lg font-bold text-foreground">
-            Horário de funcionamento
-          </h3>
-          <dl className="mt-5 flex flex-col divide-y divide-foreground/10">
-            {hours.map((item) => (
-              <div
-                key={item.day}
-                className="flex items-baseline justify-between py-3"
-              >
-                <dt className="text-foreground/70">{item.day}</dt>
-                <dd className="font-medium text-foreground">{item.time}</dd>
-              </div>
-            ))}
-          </dl>
+        <div className="flex flex-col gap-8">
+          <div className="rounded-2xl bg-accent-soft p-7">
+            <h3 className="font-display text-lg font-bold text-foreground">
+              Horário de funcionamento
+            </h3>
+            <dl className="mt-5 flex flex-col divide-y divide-foreground/10">
+              {hours.map((item) => (
+                <div
+                  key={item.day}
+                  className="flex items-baseline justify-between py-3"
+                >
+                  <dt className="text-foreground/70">{item.day}</dt>
+                  <dd className="font-medium text-foreground">{item.time}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <ContactForm />
         </div>
       </div>
     </section>
