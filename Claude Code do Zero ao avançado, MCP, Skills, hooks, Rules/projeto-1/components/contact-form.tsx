@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,13 +16,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { ConfettiBurst } from "@/components/confetti-burst";
+import { cn } from "@/lib/utils";
 import { contactFormSchema, type ContactFormInput } from "@/types/contact";
+
+const SUCCESS_EFFECT_DURATION_MS = 2000;
 
 export function ContactForm() {
   const [feedback, setFeedback] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
+  const [showSuccessEffect, setShowSuccessEffect] = useState(false);
+
+  useEffect(() => {
+    if (!showSuccessEffect) return;
+
+    const timeout = setTimeout(
+      () => setShowSuccessEffect(false),
+      SUCCESS_EFFECT_DURATION_MS,
+    );
+    return () => clearTimeout(timeout);
+  }, [showSuccessEffect]);
 
   const form = useForm<ContactFormInput>({
     resolver: zodResolver(contactFormSchema),
@@ -45,6 +60,7 @@ export function ContactForm() {
 
     if (result.success) {
       form.reset();
+      setShowSuccessEffect(true);
     }
   }
 
@@ -52,9 +68,14 @@ export function ContactForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex flex-col gap-5 rounded-2xl bg-accent-soft p-7"
+        className={cn(
+          "relative flex flex-col gap-5 overflow-hidden rounded-2xl p-7 transition-colors duration-500",
+          showSuccessEffect ? "bg-brand-soft" : "bg-accent-soft",
+        )}
         noValidate
       >
+        {showSuccessEffect && <ConfettiBurst className="absolute inset-0" />}
+
         <h3 className="font-display text-lg font-bold text-foreground">
           Peça um retorno por telefone
         </h3>
