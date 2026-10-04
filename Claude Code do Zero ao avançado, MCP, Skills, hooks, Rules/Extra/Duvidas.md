@@ -16,4 +16,5 @@
     - rules 
     - commands
     - settings.json
+- Como gerenciar tokens (criar uma janela para cada tarefa)
     
