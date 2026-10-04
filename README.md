@@ -11,8 +11,9 @@ O conteúdo principal está em:
   - `Seção 2 - Evoluindo com claude code`
   - `Seção 3 - Poder ao claude code`
   - `Seção 4 - Claude code avançado`
+  - `Seção 5 - Claude code evoluindo e uso real`
   - `Extra`
-  - `projeto-1`
+  - `projeto-1` (projeto prático em Next.js com formulário de contato, depoimentos e skills do Claude Code)
 
 ## Objetivo
 
